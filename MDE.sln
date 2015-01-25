@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkdownDom", "MDETest\MarkdownDom.csproj", "{7006DCF7-CA4C-4259-BA69-34EC44994748}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkdownDom", "MarkdownDom\MarkdownDom.csproj", "{7006DCF7-CA4C-4259-BA69-34EC44994748}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronMeta", "IronMeta\IronMeta.csproj", "{7F39404D-1631-4DEB-AFAD-09FDDE7BC4A0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMetaSharp", "OMetaSharp\OMetaSharp.csproj", "{7A14CC34-EB66-442F-9871-F0AA89D2D9C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
