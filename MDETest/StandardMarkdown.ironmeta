@@ -1,0 +1,51 @@
+﻿using System;
+using System.Linq;
+using Net.Yingzxu.MarkdownDom;
+using Net.Yingzxu.MarkdownDom.Base;
+using Net.Yingzxu.MarkdownDom.Elements;
+
+// This grammar is far more complicated than 
+// it needs to be, in order to demonstrate
+// the features of the IronMeta system.
+
+ironmeta StandardMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatcher<MarkdownElementBase>
+{
+    Document = Block*:block EOF -> { 
+		MarkdownDocument root = new MarkdownDocument(); 
+		root.AddChildrenElements(block.Results.AsEnumerable<MarkdownElementBase>());
+		return root;
+	}	;
+    Block = 
+		LineBreak
+		| Head: head -> {head}
+		| Paragraph : para -> { para }
+	;
+
+	Head = HeadSymbol:symbol HeadText:text LineBreak* ->
+		{	HeaderElement head = new HeaderElement(); 
+			head.Size=symbol.Results.First().TextContent.Length;
+			head.TextContent=text.Results.First().TextContent;
+			return head;
+		};
+	Paragraph = AnyText:text LineBreak* -> { GeneralElement para = new GeneralElement(ElementType.Paragraph); para.TextContent=text.Results.First().TextContent ;return para;};
+	LineBreak =  '\r' '\n'? | '\n' ;
+	HeadText = (~LineBreak .)* -> {
+		string match=Input(_IM_Result) ;
+		GeneralElement text = new GeneralElement(ElementType.Text); 
+		text.TextContent=match;
+		return text;}; 
+	AnyText =  (~('\n' | '\r') .)+ -> {
+		string match=Input(_IM_Result) ;
+		GeneralElement text = new GeneralElement(ElementType.Text); 
+		text.TextContent=match;
+		return text;}; 
+	HeadSymbol = '#'+ -> {
+		string match=Input(_IM_Result) ;
+		GeneralElement text = new GeneralElement(ElementType.Text); 
+		text.TextContent=match;
+		return text;}; 
+	DG = ['0'-'9'];
+	EN = ['a'-'z'] | ['A'-'Z'];
+    WS = ' ' | '\n' | '\r' | '\t'; 
+	EOF = ~. ;
+} 

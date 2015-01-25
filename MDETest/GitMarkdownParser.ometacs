@@ -1,0 +1,27 @@
+﻿using System;
+using System.Linq;
+using Net.Yingzxu.MarkdownDom;
+using Net.Yingzxu.MarkdownDom.Base;
+using Net.Yingzxu.MarkdownDom.Elements;
+using OMetaSharp;
+
+ometa Net.Yingzxu.MarkdownDom.Parser.GitMarkdownParser<char, MarkdownElementBase> : Parser<char> {
+	// Insert the body into a body tag
+	Document = 'a'*:block -> 
+	{ (Func<object>)(
+		()=>{
+		MarkdownDocument root = new MarkdownDocument(); 
+		root.AddChildrenElements(block.ToIEnumerable<MarkdownElementBase>);
+		return root;
+		})
+	},
+	AnyText =  (~('\n' | '\r'))+ : match ->
+	{ (Func<object>)(
+		()=>{
+		GeneralElement text = new GeneralElement(ElementType.Text); 
+		text.TextContent=match;
+		return text;
+		})
+	},
+	LineBreak =  '\r' '\n'? | '\n'
+}
