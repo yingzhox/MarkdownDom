@@ -8,7 +8,7 @@ using Net.Yingzxu.MarkdownDom.Elements;
 // it needs to be, in order to demonstrate
 // the features of the IronMeta system.
 
-ironmeta StandardMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatcher<MarkdownElementBase>
+ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatcher<MarkdownElementBase>
 {
     Document = Block*:block EOF -> { 
 		MarkdownDocument root = new MarkdownDocument(); 

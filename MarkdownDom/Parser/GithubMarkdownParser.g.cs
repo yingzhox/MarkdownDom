@@ -1,5 +1,5 @@
 //
-// IronMeta StandardMarkdown Parser; Generated 2015-01-25 19:20:21Z UTC
+// IronMeta GithubMarkdown Parser; Generated 2015-01-25 19:33:28Z UTC
 //
 
 using System;
@@ -16,23 +16,23 @@ using Net.Yingzxu.MarkdownDom.Elements;
 namespace Net.Yingzxu.MarkdownDom.Parser
 {
 
-    using _StandardMarkdown_Inputs = IEnumerable<char>;
-    using _StandardMarkdown_Results = IEnumerable<MarkdownElementBase>;
-    using _StandardMarkdown_Item = IronMeta.Matcher.MatchItem<char, MarkdownElementBase>;
-    using _StandardMarkdown_Args = IEnumerable<IronMeta.Matcher.MatchItem<char, MarkdownElementBase>>;
-    using _StandardMarkdown_Memo = Memo<char, MarkdownElementBase>;
-    using _StandardMarkdown_Rule = System.Action<Memo<char, MarkdownElementBase>, int, IEnumerable<IronMeta.Matcher.MatchItem<char, MarkdownElementBase>>>;
-    using _StandardMarkdown_Base = IronMeta.Matcher.Matcher<char, MarkdownElementBase>;
+    using _GithubMarkdown_Inputs = IEnumerable<char>;
+    using _GithubMarkdown_Results = IEnumerable<MarkdownElementBase>;
+    using _GithubMarkdown_Item = IronMeta.Matcher.MatchItem<char, MarkdownElementBase>;
+    using _GithubMarkdown_Args = IEnumerable<IronMeta.Matcher.MatchItem<char, MarkdownElementBase>>;
+    using _GithubMarkdown_Memo = Memo<char, MarkdownElementBase>;
+    using _GithubMarkdown_Rule = System.Action<Memo<char, MarkdownElementBase>, int, IEnumerable<IronMeta.Matcher.MatchItem<char, MarkdownElementBase>>>;
+    using _GithubMarkdown_Base = IronMeta.Matcher.Matcher<char, MarkdownElementBase>;
 
-    public partial class StandardMarkdown : IronMeta.Matcher.CharMatcher<MarkdownElementBase>
+    public partial class GithubMarkdown : IronMeta.Matcher.CharMatcher<MarkdownElementBase>
     {
-        public StandardMarkdown()
+        public GithubMarkdown()
             : base()
         {
             _setTerminals();
         }
 
-        public StandardMarkdown(bool handle_left_recursion)
+        public GithubMarkdown(bool handle_left_recursion)
             : base(handle_left_recursion)
         {
             _setTerminals();
@@ -58,11 +58,11 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         }
 
 
-        public void Document(_StandardMarkdown_Memo _memo, int _index, _StandardMarkdown_Args _args)
+        public void Document(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
         {
         
 
-            _StandardMarkdown_Item block = null;
+            _GithubMarkdown_Item block = null;
 
             // AND 1
             int _start_i1 = _index;
@@ -73,7 +73,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         label3:
 
             // CALLORVAR Block
-            _StandardMarkdown_Item _r4;
+            _GithubMarkdown_Item _r4;
 
             _r4 = _MemoCall(_memo, "Block", _index, Block, null);
 
@@ -88,7 +88,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             }
             else
             {
-                _memo.Results.Push(new _StandardMarkdown_Item(_start_i3, _index, _memo.InputEnumerable, _res3.Where(_NON_NULL), true));
+                _memo.Results.Push(new _GithubMarkdown_Item(_start_i3, _index, _memo.InputEnumerable, _res3.Where(_NON_NULL), true));
             }
 
             // BIND block
@@ -98,7 +98,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             if (_memo.Results.Peek() == null) { _memo.Results.Push(null); goto label1; }
 
             // CALLORVAR EOF
-            _StandardMarkdown_Item _r5;
+            _GithubMarkdown_Item _r5;
 
             _r5 = _MemoCall(_memo, "EOF", _index, EOF, null);
 
@@ -110,7 +110,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
 
             if (_r1_1 != null && _r1_2 != null)
             {
-                _memo.Results.Push( new _StandardMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _r1_1.Results.Concat(_r1_2.Results).Where(_NON_NULL), true) );
+                _memo.Results.Push( new _GithubMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _r1_1.Results.Concat(_r1_2.Results).Where(_NON_NULL), true) );
             }
             else
             {
@@ -123,7 +123,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             if (_r0 != null)
             {
                 _memo.Results.Pop();
-                _memo.Results.Push( new _StandardMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { MarkdownDocument root = new MarkdownDocument(); 
+                _memo.Results.Push( new _GithubMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { MarkdownDocument root = new MarkdownDocument(); 
         root.AddChildrenElements(block.Results.AsEnumerable<MarkdownElementBase>());
         return root; }, _r0), true) );
             }
@@ -131,12 +131,12 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         }
 
 
-        public void Block(_StandardMarkdown_Memo _memo, int _index, _StandardMarkdown_Args _args)
+        public void Block(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
         {
         
 
-            _StandardMarkdown_Item head = null;
-            _StandardMarkdown_Item para = null;
+            _GithubMarkdown_Item head = null;
+            _GithubMarkdown_Item para = null;
 
             // OR 0
             int _start_i0 = _index;
@@ -145,7 +145,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             int _start_i1 = _index;
 
             // CALLORVAR LineBreak
-            _StandardMarkdown_Item _r2;
+            _GithubMarkdown_Item _r2;
 
             _r2 = _MemoCall(_memo, "LineBreak", _index, LineBreak, null);
 
@@ -155,7 +155,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             if (_memo.Results.Peek() == null) { _memo.Results.Pop(); _index = _start_i1; } else goto label1;
 
             // CALLORVAR Head
-            _StandardMarkdown_Item _r5;
+            _GithubMarkdown_Item _r5;
 
             _r5 = _MemoCall(_memo, "Head", _index, Head, null);
 
@@ -169,7 +169,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             if (_r3 != null)
             {
                 _memo.Results.Pop();
-                _memo.Results.Push( new _StandardMarkdown_Item(_r3.StartIndex, _r3.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { return head; }, _r3), true) );
+                _memo.Results.Push( new _GithubMarkdown_Item(_r3.StartIndex, _r3.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { return head; }, _r3), true) );
             }
 
         label1: // OR
@@ -179,7 +179,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             if (_memo.Results.Peek() == null) { _memo.Results.Pop(); _index = _start_i0; } else goto label0;
 
             // CALLORVAR Paragraph
-            _StandardMarkdown_Item _r8;
+            _GithubMarkdown_Item _r8;
 
             _r8 = _MemoCall(_memo, "Paragraph", _index, Paragraph, null);
 
@@ -193,7 +193,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             if (_r6 != null)
             {
                 _memo.Results.Pop();
-                _memo.Results.Push( new _StandardMarkdown_Item(_r6.StartIndex, _r6.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { return para; }, _r6), true) );
+                _memo.Results.Push( new _GithubMarkdown_Item(_r6.StartIndex, _r6.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { return para; }, _r6), true) );
             }
 
         label0: // OR
@@ -202,12 +202,12 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         }
 
 
-        public void Head(_StandardMarkdown_Memo _memo, int _index, _StandardMarkdown_Args _args)
+        public void Head(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
         {
         
 
-            _StandardMarkdown_Item symbol = null;
-            _StandardMarkdown_Item text = null;
+            _GithubMarkdown_Item symbol = null;
+            _GithubMarkdown_Item text = null;
 
             // AND 1
             int _start_i1 = _index;
@@ -216,7 +216,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             int _start_i2 = _index;
 
             // CALLORVAR HeadSymbol
-            _StandardMarkdown_Item _r4;
+            _GithubMarkdown_Item _r4;
 
             _r4 = _MemoCall(_memo, "HeadSymbol", _index, HeadSymbol, null);
 
@@ -229,7 +229,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             if (_memo.Results.Peek() == null) { _memo.Results.Push(null); goto label2; }
 
             // CALLORVAR HeadText
-            _StandardMarkdown_Item _r6;
+            _GithubMarkdown_Item _r6;
 
             _r6 = _MemoCall(_memo, "HeadText", _index, HeadText, null);
 
@@ -244,7 +244,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
 
             if (_r2_1 != null && _r2_2 != null)
             {
-                _memo.Results.Push( new _StandardMarkdown_Item(_start_i2, _index, _memo.InputEnumerable, _r2_1.Results.Concat(_r2_2.Results).Where(_NON_NULL), true) );
+                _memo.Results.Push( new _GithubMarkdown_Item(_start_i2, _index, _memo.InputEnumerable, _r2_1.Results.Concat(_r2_2.Results).Where(_NON_NULL), true) );
             }
             else
             {
@@ -261,7 +261,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         label7:
 
             // CALLORVAR LineBreak
-            _StandardMarkdown_Item _r8;
+            _GithubMarkdown_Item _r8;
 
             _r8 = _MemoCall(_memo, "LineBreak", _index, LineBreak, null);
 
@@ -276,7 +276,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             }
             else
             {
-                _memo.Results.Push(new _StandardMarkdown_Item(_start_i7, _index, _memo.InputEnumerable, _res7.Where(_NON_NULL), true));
+                _memo.Results.Push(new _GithubMarkdown_Item(_start_i7, _index, _memo.InputEnumerable, _res7.Where(_NON_NULL), true));
             }
 
         label1: // AND
@@ -285,7 +285,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
 
             if (_r1_1 != null && _r1_2 != null)
             {
-                _memo.Results.Push( new _StandardMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _r1_1.Results.Concat(_r1_2.Results).Where(_NON_NULL), true) );
+                _memo.Results.Push( new _GithubMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _r1_1.Results.Concat(_r1_2.Results).Where(_NON_NULL), true) );
             }
             else
             {
@@ -298,7 +298,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             if (_r0 != null)
             {
                 _memo.Results.Pop();
-                _memo.Results.Push( new _StandardMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { HeaderElement head = new HeaderElement(); 
+                _memo.Results.Push( new _GithubMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { HeaderElement head = new HeaderElement(); 
             head.Size=symbol.Results.First().TextContent.Length;
             head.TextContent=text.Results.First().TextContent;
             return head; }, _r0), true) );
@@ -307,17 +307,17 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         }
 
 
-        public void Paragraph(_StandardMarkdown_Memo _memo, int _index, _StandardMarkdown_Args _args)
+        public void Paragraph(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
         {
         
 
-            _StandardMarkdown_Item text = null;
+            _GithubMarkdown_Item text = null;
 
             // AND 1
             int _start_i1 = _index;
 
             // CALLORVAR AnyText
-            _StandardMarkdown_Item _r3;
+            _GithubMarkdown_Item _r3;
 
             _r3 = _MemoCall(_memo, "AnyText", _index, AnyText, null);
 
@@ -335,7 +335,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         label4:
 
             // CALLORVAR LineBreak
-            _StandardMarkdown_Item _r5;
+            _GithubMarkdown_Item _r5;
 
             _r5 = _MemoCall(_memo, "LineBreak", _index, LineBreak, null);
 
@@ -350,7 +350,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             }
             else
             {
-                _memo.Results.Push(new _StandardMarkdown_Item(_start_i4, _index, _memo.InputEnumerable, _res4.Where(_NON_NULL), true));
+                _memo.Results.Push(new _GithubMarkdown_Item(_start_i4, _index, _memo.InputEnumerable, _res4.Where(_NON_NULL), true));
             }
 
         label1: // AND
@@ -359,7 +359,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
 
             if (_r1_1 != null && _r1_2 != null)
             {
-                _memo.Results.Push( new _StandardMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _r1_1.Results.Concat(_r1_2.Results).Where(_NON_NULL), true) );
+                _memo.Results.Push( new _GithubMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _r1_1.Results.Concat(_r1_2.Results).Where(_NON_NULL), true) );
             }
             else
             {
@@ -372,13 +372,13 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             if (_r0 != null)
             {
                 _memo.Results.Pop();
-                _memo.Results.Push( new _StandardMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { GeneralElement para = new GeneralElement(ElementType.Paragraph); para.TextContent=text.Results.First().TextContent ;return para; }, _r0), true) );
+                _memo.Results.Push( new _GithubMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { GeneralElement para = new GeneralElement(ElementType.Paragraph); para.TextContent=text.Results.First().TextContent ;return para; }, _r0), true) );
             }
 
         }
 
 
-        public void LineBreak(_StandardMarkdown_Memo _memo, int _index, _StandardMarkdown_Args _args)
+        public void LineBreak(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
         {
         
 
@@ -398,7 +398,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             _ParseLiteralChar(_memo, ref _index, '\n');
 
             // QUES
-            if (_memo.Results.Peek() == null) { _memo.Results.Pop(); _memo.Results.Push(new _StandardMarkdown_Item(_index, _memo.InputEnumerable)); }
+            if (_memo.Results.Peek() == null) { _memo.Results.Pop(); _memo.Results.Push(new _GithubMarkdown_Item(_index, _memo.InputEnumerable)); }
 
         label1: // AND
             var _r1_2 = _memo.Results.Pop();
@@ -406,7 +406,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
 
             if (_r1_1 != null && _r1_2 != null)
             {
-                _memo.Results.Push( new _StandardMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _r1_1.Results.Concat(_r1_2.Results).Where(_NON_NULL), true) );
+                _memo.Results.Push( new _GithubMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _r1_1.Results.Concat(_r1_2.Results).Where(_NON_NULL), true) );
             }
             else
             {
@@ -426,7 +426,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         }
 
 
-        public void HeadText(_StandardMarkdown_Memo _memo, int _index, _StandardMarkdown_Args _args)
+        public void HeadText(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
         {
         
 
@@ -442,7 +442,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             int _start_i3 = _index;
 
             // CALLORVAR LineBreak
-            _StandardMarkdown_Item _r4;
+            _GithubMarkdown_Item _r4;
 
             _r4 = _MemoCall(_memo, "LineBreak", _index, LineBreak, null);
 
@@ -450,7 +450,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
 
             // NOT 3
             var _r3 = _memo.Results.Pop();
-            _memo.Results.Push( _r3 == null ? new _StandardMarkdown_Item(_start_i3, _memo.InputEnumerable) : null);
+            _memo.Results.Push( _r3 == null ? new _GithubMarkdown_Item(_start_i3, _memo.InputEnumerable) : null);
             _index = _start_i3;
 
             // AND shortcut
@@ -465,7 +465,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
 
             if (_r2_1 != null && _r2_2 != null)
             {
-                _memo.Results.Push( new _StandardMarkdown_Item(_start_i2, _index, _memo.InputEnumerable, _r2_1.Results.Concat(_r2_2.Results).Where(_NON_NULL), true) );
+                _memo.Results.Push( new _GithubMarkdown_Item(_start_i2, _index, _memo.InputEnumerable, _r2_1.Results.Concat(_r2_2.Results).Where(_NON_NULL), true) );
             }
             else
             {
@@ -482,7 +482,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             }
             else
             {
-                _memo.Results.Push(new _StandardMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _res1.Where(_NON_NULL), true));
+                _memo.Results.Push(new _GithubMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _res1.Where(_NON_NULL), true));
             }
 
             // ACT
@@ -490,7 +490,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             if (_r0 != null)
             {
                 _memo.Results.Pop();
-                _memo.Results.Push( new _StandardMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { string match=Input(_IM_Result) ;
+                _memo.Results.Push( new _GithubMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { string match=Input(_IM_Result) ;
         GeneralElement text = new GeneralElement(ElementType.Text); 
         text.TextContent=match;
         return text; }, _r0), true) );
@@ -499,7 +499,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         }
 
 
-        public void AnyText(_StandardMarkdown_Memo _memo, int _index, _StandardMarkdown_Args _args)
+        public void AnyText(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
         {
         
 
@@ -531,7 +531,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
 
             // NOT 3
             var _r3 = _memo.Results.Pop();
-            _memo.Results.Push( _r3 == null ? new _StandardMarkdown_Item(_start_i3, _memo.InputEnumerable) : null);
+            _memo.Results.Push( _r3 == null ? new _GithubMarkdown_Item(_start_i3, _memo.InputEnumerable) : null);
             _index = _start_i3;
 
             // AND shortcut
@@ -546,7 +546,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
 
             if (_r2_1 != null && _r2_2 != null)
             {
-                _memo.Results.Push( new _StandardMarkdown_Item(_start_i2, _index, _memo.InputEnumerable, _r2_1.Results.Concat(_r2_2.Results).Where(_NON_NULL), true) );
+                _memo.Results.Push( new _GithubMarkdown_Item(_start_i2, _index, _memo.InputEnumerable, _r2_1.Results.Concat(_r2_2.Results).Where(_NON_NULL), true) );
             }
             else
             {
@@ -564,7 +564,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             else
             {
                 if (_index > _start_i1)
-                    _memo.Results.Push(new _StandardMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _res1.Where(_NON_NULL), true));
+                    _memo.Results.Push(new _GithubMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _res1.Where(_NON_NULL), true));
                 else
                     _memo.Results.Push(null);
             }
@@ -574,7 +574,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             if (_r0 != null)
             {
                 _memo.Results.Pop();
-                _memo.Results.Push( new _StandardMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { string match=Input(_IM_Result) ;
+                _memo.Results.Push( new _GithubMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { string match=Input(_IM_Result) ;
         GeneralElement text = new GeneralElement(ElementType.Text); 
         text.TextContent=match;
         return text; }, _r0), true) );
@@ -583,7 +583,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         }
 
 
-        public void HeadSymbol(_StandardMarkdown_Memo _memo, int _index, _StandardMarkdown_Args _args)
+        public void HeadSymbol(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
         {
         
 
@@ -605,7 +605,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             else
             {
                 if (_index > _start_i1)
-                    _memo.Results.Push(new _StandardMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _res1.Where(_NON_NULL), true));
+                    _memo.Results.Push(new _GithubMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _res1.Where(_NON_NULL), true));
                 else
                     _memo.Results.Push(null);
             }
@@ -615,7 +615,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             if (_r0 != null)
             {
                 _memo.Results.Pop();
-                _memo.Results.Push( new _StandardMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { string match=Input(_IM_Result) ;
+                _memo.Results.Push( new _GithubMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { string match=Input(_IM_Result) ;
         GeneralElement text = new GeneralElement(ElementType.Text); 
         text.TextContent=match;
         return text; }, _r0), true) );
@@ -624,7 +624,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         }
 
 
-        public void DG(_StandardMarkdown_Memo _memo, int _index, _StandardMarkdown_Args _args)
+        public void DG(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
         {
         
 
@@ -634,7 +634,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         }
 
 
-        public void EN(_StandardMarkdown_Memo _memo, int _index, _StandardMarkdown_Args _args)
+        public void EN(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
         {
         
 
@@ -656,7 +656,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         }
 
 
-        public void WS(_StandardMarkdown_Memo _memo, int _index, _StandardMarkdown_Args _args)
+        public void WS(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
         {
         
 
@@ -702,7 +702,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         }
 
 
-        public void EOF(_StandardMarkdown_Memo _memo, int _index, _StandardMarkdown_Args _args)
+        public void EOF(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
         {
         
 
@@ -714,12 +714,12 @@ namespace Net.Yingzxu.MarkdownDom.Parser
 
             // NOT 0
             var _r0 = _memo.Results.Pop();
-            _memo.Results.Push( _r0 == null ? new _StandardMarkdown_Item(_start_i0, _memo.InputEnumerable) : null);
+            _memo.Results.Push( _r0 == null ? new _GithubMarkdown_Item(_start_i0, _memo.InputEnumerable) : null);
             _index = _start_i0;
 
         }
 
-    } // class StandardMarkdown
+    } // class GithubMarkdown
 
 } // namespace Net.Yingzxu.MarkdownDom.Parser
 

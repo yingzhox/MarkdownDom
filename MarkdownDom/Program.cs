@@ -16,15 +16,15 @@ namespace MDETest
         static void Main(string[] args)
         {
             //RebuildOMetaSharpParser();
-            Parse();
-            //Convert();
+            //Parse();
+            Convert();
             //OMetaConsoleProgram.Run<Program>(OMetaConsoleOptions.CompileGrammars);
             Console.Read();
         }
 
         static void Parse()
         {
-            StandardMarkdown parser = new StandardMarkdown();
+            GithubMarkdown parser = new GithubMarkdown();
             var match = parser.GetMatch("\n#hahaha\nsdfsdfsdf\n132213\n12312", parser.Document);
             MarkdownElementBase res= match.Results.First();
             if (match.Success)
@@ -35,7 +35,7 @@ namespace MDETest
 
         static void Convert()
         {
-            string[] args = { "-f", "-n", "Net.Yingzxu.MarkdownDom.Parser", "E:\\Projects\\MarkdownEverywhere\\MDE\\MDETest\\StandardMarkdown.ironmeta" };
+            string[] args = { "-f", "-n", "Net.Yingzxu.MarkdownDom.Parser", "E:\\Projects\\MarkdownEverywhere\\MDE\\MarkdownDom\\Parser\\GithubMarkdownParser.ironmeta" };
             IronMeta.Program.Main(args);
         }
 
