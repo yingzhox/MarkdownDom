@@ -1,5 +1,5 @@
 //
-// IronMeta GithubMarkdown Parser; Generated 2015-01-25 19:33:28Z UTC
+// IronMeta GithubMarkdown Parser; Generated 2015-01-25 19:37:18Z UTC
 //
 
 using System;
@@ -301,6 +301,8 @@ namespace Net.Yingzxu.MarkdownDom.Parser
                 _memo.Results.Push( new _GithubMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { HeaderElement head = new HeaderElement(); 
             head.Size=symbol.Results.First().TextContent.Length;
             head.TextContent=text.Results.First().TextContent;
+            //remove the tailing #
+            head.TextContent=head.TextContent.TrimEnd('#');
             return head; }, _r0), true) );
             }
 

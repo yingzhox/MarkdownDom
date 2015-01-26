@@ -25,6 +25,8 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 		{	HeaderElement head = new HeaderElement(); 
 			head.Size=symbol.Results.First().TextContent.Length;
 			head.TextContent=text.Results.First().TextContent;
+			//remove the tailing #
+			head.TextContent=head.TextContent.TrimEnd('#');
 			return head;
 		};
 	Paragraph = AnyText:text LineBreak* -> { GeneralElement para = new GeneralElement(ElementType.Paragraph); para.TextContent=text.Results.First().TextContent ;return para;};

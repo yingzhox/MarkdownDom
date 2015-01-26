@@ -16,8 +16,8 @@ namespace MDETest
         static void Main(string[] args)
         {
             //RebuildOMetaSharpParser();
-            //Parse();
-            Convert();
+            Parse();
+            //Convert();
             //OMetaConsoleProgram.Run<Program>(OMetaConsoleOptions.CompileGrammars);
             Console.Read();
         }
@@ -25,7 +25,7 @@ namespace MDETest
         static void Parse()
         {
             GithubMarkdown parser = new GithubMarkdown();
-            var match = parser.GetMatch("\n#hahaha\nsdfsdfsdf\n132213\n12312", parser.Document);
+            var match = parser.GetMatch("\n#hahaha\n##\nsdfsdfsdf\n132213\n12312", parser.Document);
             MarkdownElementBase res= match.Results.First();
             if (match.Success)
                 Console.WriteLine("result: \n{0}", res); // should print "14"
