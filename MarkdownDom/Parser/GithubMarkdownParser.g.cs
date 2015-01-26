@@ -1,5 +1,5 @@
 //
-// IronMeta GithubMarkdown Parser; Generated 2015-01-25 19:37:18Z UTC
+// IronMeta GithubMarkdown Parser; Generated 2015-01-26 05:49:03Z UTC
 //
 
 using System;
@@ -42,15 +42,14 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         {
             this.Terminals = new HashSet<string>()
             {
-                "AnyText",
-                "Block",
+                "BlockquoteSymbol",
                 "DG",
-                "Document",
                 "EN",
                 "EOF",
                 "Head",
                 "HeadSymbol",
                 "HeadText",
+                "InlineText",
                 "LineBreak",
                 "Paragraph",
                 "WS",
@@ -136,6 +135,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         
 
             _GithubMarkdown_Item head = null;
+            _GithubMarkdown_Item quote = null;
             _GithubMarkdown_Item para = null;
 
             // OR 0
@@ -144,32 +144,59 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             // OR 1
             int _start_i1 = _index;
 
+            // OR 2
+            int _start_i2 = _index;
+
             // CALLORVAR LineBreak
-            _GithubMarkdown_Item _r2;
+            _GithubMarkdown_Item _r3;
 
-            _r2 = _MemoCall(_memo, "LineBreak", _index, LineBreak, null);
+            _r3 = _MemoCall(_memo, "LineBreak", _index, LineBreak, null);
 
-            if (_r2 != null) _index = _r2.NextIndex;
+            if (_r3 != null) _index = _r3.NextIndex;
 
             // OR shortcut
-            if (_memo.Results.Peek() == null) { _memo.Results.Pop(); _index = _start_i1; } else goto label1;
+            if (_memo.Results.Peek() == null) { _memo.Results.Pop(); _index = _start_i2; } else goto label2;
 
             // CALLORVAR Head
-            _GithubMarkdown_Item _r5;
+            _GithubMarkdown_Item _r6;
 
-            _r5 = _MemoCall(_memo, "Head", _index, Head, null);
+            _r6 = _MemoCall(_memo, "Head", _index, Head, null);
 
-            if (_r5 != null) _index = _r5.NextIndex;
+            if (_r6 != null) _index = _r6.NextIndex;
 
             // BIND head
             head = _memo.Results.Peek();
 
             // ACT
-            var _r3 = _memo.Results.Peek();
-            if (_r3 != null)
+            var _r4 = _memo.Results.Peek();
+            if (_r4 != null)
             {
                 _memo.Results.Pop();
-                _memo.Results.Push( new _GithubMarkdown_Item(_r3.StartIndex, _r3.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { return head; }, _r3), true) );
+                _memo.Results.Push( new _GithubMarkdown_Item(_r4.StartIndex, _r4.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { return head; }, _r4), true) );
+            }
+
+        label2: // OR
+            int _dummy_i2 = _index; // no-op for label
+
+            // OR shortcut
+            if (_memo.Results.Peek() == null) { _memo.Results.Pop(); _index = _start_i1; } else goto label1;
+
+            // CALLORVAR Blockquote
+            _GithubMarkdown_Item _r9;
+
+            _r9 = _MemoCall(_memo, "Blockquote", _index, Blockquote, null);
+
+            if (_r9 != null) _index = _r9.NextIndex;
+
+            // BIND quote
+            quote = _memo.Results.Peek();
+
+            // ACT
+            var _r7 = _memo.Results.Peek();
+            if (_r7 != null)
+            {
+                _memo.Results.Pop();
+                _memo.Results.Push( new _GithubMarkdown_Item(_r7.StartIndex, _r7.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { return quote; }, _r7), true) );
             }
 
         label1: // OR
@@ -179,21 +206,21 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             if (_memo.Results.Peek() == null) { _memo.Results.Pop(); _index = _start_i0; } else goto label0;
 
             // CALLORVAR Paragraph
-            _GithubMarkdown_Item _r8;
+            _GithubMarkdown_Item _r12;
 
-            _r8 = _MemoCall(_memo, "Paragraph", _index, Paragraph, null);
+            _r12 = _MemoCall(_memo, "Paragraph", _index, Paragraph, null);
 
-            if (_r8 != null) _index = _r8.NextIndex;
+            if (_r12 != null) _index = _r12.NextIndex;
 
             // BIND para
             para = _memo.Results.Peek();
 
             // ACT
-            var _r6 = _memo.Results.Peek();
-            if (_r6 != null)
+            var _r10 = _memo.Results.Peek();
+            if (_r10 != null)
             {
                 _memo.Results.Pop();
-                _memo.Results.Push( new _GithubMarkdown_Item(_r6.StartIndex, _r6.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { return para; }, _r6), true) );
+                _memo.Results.Push( new _GithubMarkdown_Item(_r10.StartIndex, _r10.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { return para; }, _r10), true) );
             }
 
         label0: // OR
@@ -212,72 +239,28 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             // AND 1
             int _start_i1 = _index;
 
-            // AND 2
-            int _start_i2 = _index;
-
             // CALLORVAR HeadSymbol
-            _GithubMarkdown_Item _r4;
+            _GithubMarkdown_Item _r3;
 
-            _r4 = _MemoCall(_memo, "HeadSymbol", _index, HeadSymbol, null);
+            _r3 = _MemoCall(_memo, "HeadSymbol", _index, HeadSymbol, null);
 
-            if (_r4 != null) _index = _r4.NextIndex;
+            if (_r3 != null) _index = _r3.NextIndex;
 
             // BIND symbol
             symbol = _memo.Results.Peek();
 
             // AND shortcut
-            if (_memo.Results.Peek() == null) { _memo.Results.Push(null); goto label2; }
+            if (_memo.Results.Peek() == null) { _memo.Results.Push(null); goto label1; }
 
             // CALLORVAR HeadText
-            _GithubMarkdown_Item _r6;
+            _GithubMarkdown_Item _r5;
 
-            _r6 = _MemoCall(_memo, "HeadText", _index, HeadText, null);
+            _r5 = _MemoCall(_memo, "HeadText", _index, HeadText, null);
 
-            if (_r6 != null) _index = _r6.NextIndex;
+            if (_r5 != null) _index = _r5.NextIndex;
 
             // BIND text
             text = _memo.Results.Peek();
-
-        label2: // AND
-            var _r2_2 = _memo.Results.Pop();
-            var _r2_1 = _memo.Results.Pop();
-
-            if (_r2_1 != null && _r2_2 != null)
-            {
-                _memo.Results.Push( new _GithubMarkdown_Item(_start_i2, _index, _memo.InputEnumerable, _r2_1.Results.Concat(_r2_2.Results).Where(_NON_NULL), true) );
-            }
-            else
-            {
-                _memo.Results.Push(null);
-                _index = _start_i2;
-            }
-
-            // AND shortcut
-            if (_memo.Results.Peek() == null) { _memo.Results.Push(null); goto label1; }
-
-            // STAR 7
-            int _start_i7 = _index;
-            var _res7 = Enumerable.Empty<MarkdownElementBase>();
-        label7:
-
-            // CALLORVAR LineBreak
-            _GithubMarkdown_Item _r8;
-
-            _r8 = _MemoCall(_memo, "LineBreak", _index, LineBreak, null);
-
-            if (_r8 != null) _index = _r8.NextIndex;
-
-            // STAR 7
-            var _r7 = _memo.Results.Pop();
-            if (_r7 != null)
-            {
-                _res7 = _res7.Concat(_r7.Results);
-                goto label7;
-            }
-            else
-            {
-                _memo.Results.Push(new _GithubMarkdown_Item(_start_i7, _index, _memo.InputEnumerable, _res7.Where(_NON_NULL), true));
-            }
 
         label1: // AND
             var _r1_2 = _memo.Results.Pop();
@@ -315,45 +298,262 @@ namespace Net.Yingzxu.MarkdownDom.Parser
 
             _GithubMarkdown_Item text = null;
 
-            // AND 1
-            int _start_i1 = _index;
+            // CALLORVAR InlineText
+            _GithubMarkdown_Item _r2;
 
-            // CALLORVAR AnyText
-            _GithubMarkdown_Item _r3;
+            _r2 = _MemoCall(_memo, "InlineText", _index, InlineText, null);
 
-            _r3 = _MemoCall(_memo, "AnyText", _index, AnyText, null);
-
-            if (_r3 != null) _index = _r3.NextIndex;
+            if (_r2 != null) _index = _r2.NextIndex;
 
             // BIND text
             text = _memo.Results.Peek();
 
-            // AND shortcut
-            if (_memo.Results.Peek() == null) { _memo.Results.Push(null); goto label1; }
+            // ACT
+            var _r0 = _memo.Results.Peek();
+            if (_r0 != null)
+            {
+                _memo.Results.Pop();
+                _memo.Results.Push( new _GithubMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { GeneralElement para = new GeneralElement(ElementType.Paragraph); 
+            para.TextContent=text.Results.First().TextContent;
+            return para; }, _r0), true) );
+            }
 
-            // STAR 4
-            int _start_i4 = _index;
-            var _res4 = Enumerable.Empty<MarkdownElementBase>();
-        label4:
+        }
 
-            // CALLORVAR LineBreak
+
+        public void Blockquote(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
+        {
+        
+
+            _GithubMarkdown_Item symbol = null;
+            _GithubMarkdown_Item inner = null;
+            _GithubMarkdown_Item children = null;
+
+            // AND 1
+            int _start_i1 = _index;
+
+            // AND 2
+            int _start_i2 = _index;
+
+            // AND 3
+            int _start_i3 = _index;
+
+            // CALLORVAR BlockquoteSymbol
             _GithubMarkdown_Item _r5;
 
-            _r5 = _MemoCall(_memo, "LineBreak", _index, LineBreak, null);
+            _r5 = _MemoCall(_memo, "BlockquoteSymbol", _index, BlockquoteSymbol, null);
 
             if (_r5 != null) _index = _r5.NextIndex;
 
-            // STAR 4
-            var _r4 = _memo.Results.Pop();
-            if (_r4 != null)
+            // BIND symbol
+            symbol = _memo.Results.Peek();
+
+            // AND shortcut
+            if (_memo.Results.Peek() == null) { _memo.Results.Push(null); goto label3; }
+
+            // STAR 7
+            int _start_i7 = _index;
+            var _res7 = Enumerable.Empty<MarkdownElementBase>();
+        label7:
+
+            // OR 8
+            int _start_i8 = _index;
+
+            // CALLORVAR Head
+            _GithubMarkdown_Item _r9;
+
+            _r9 = _MemoCall(_memo, "Head", _index, Head, null);
+
+            if (_r9 != null) _index = _r9.NextIndex;
+
+            // OR shortcut
+            if (_memo.Results.Peek() == null) { _memo.Results.Pop(); _index = _start_i8; } else goto label8;
+
+            // CALLORVAR Paragraph
+            _GithubMarkdown_Item _r10;
+
+            _r10 = _MemoCall(_memo, "Paragraph", _index, Paragraph, null);
+
+            if (_r10 != null) _index = _r10.NextIndex;
+
+        label8: // OR
+            int _dummy_i8 = _index; // no-op for label
+
+            // STAR 7
+            var _r7 = _memo.Results.Pop();
+            if (_r7 != null)
             {
-                _res4 = _res4.Concat(_r4.Results);
-                goto label4;
+                _res7 = _res7.Concat(_r7.Results);
+                goto label7;
             }
             else
             {
-                _memo.Results.Push(new _GithubMarkdown_Item(_start_i4, _index, _memo.InputEnumerable, _res4.Where(_NON_NULL), true));
+                _memo.Results.Push(new _GithubMarkdown_Item(_start_i7, _index, _memo.InputEnumerable, _res7.Where(_NON_NULL), true));
             }
+
+            // BIND inner
+            inner = _memo.Results.Peek();
+
+        label3: // AND
+            var _r3_2 = _memo.Results.Pop();
+            var _r3_1 = _memo.Results.Pop();
+
+            if (_r3_1 != null && _r3_2 != null)
+            {
+                _memo.Results.Push( new _GithubMarkdown_Item(_start_i3, _index, _memo.InputEnumerable, _r3_1.Results.Concat(_r3_2.Results).Where(_NON_NULL), true) );
+            }
+            else
+            {
+                _memo.Results.Push(null);
+                _index = _start_i3;
+            }
+
+            // AND shortcut
+            if (_memo.Results.Peek() == null) { _memo.Results.Push(null); goto label2; }
+
+            // CALLORVAR LineBreak
+            _GithubMarkdown_Item _r12;
+
+            _r12 = _MemoCall(_memo, "LineBreak", _index, LineBreak, null);
+
+            if (_r12 != null) _index = _r12.NextIndex;
+
+            // QUES
+            if (_memo.Results.Peek() == null) { _memo.Results.Pop(); _memo.Results.Push(new _GithubMarkdown_Item(_index, _memo.InputEnumerable)); }
+
+        label2: // AND
+            var _r2_2 = _memo.Results.Pop();
+            var _r2_1 = _memo.Results.Pop();
+
+            if (_r2_1 != null && _r2_2 != null)
+            {
+                _memo.Results.Push( new _GithubMarkdown_Item(_start_i2, _index, _memo.InputEnumerable, _r2_1.Results.Concat(_r2_2.Results).Where(_NON_NULL), true) );
+            }
+            else
+            {
+                _memo.Results.Push(null);
+                _index = _start_i2;
+            }
+
+            // AND shortcut
+            if (_memo.Results.Peek() == null) { _memo.Results.Push(null); goto label1; }
+
+            // STAR 14
+            int _start_i14 = _index;
+            var _res14 = Enumerable.Empty<MarkdownElementBase>();
+        label14:
+
+            // AND 15
+            int _start_i15 = _index;
+
+            // OR 16
+            int _start_i16 = _index;
+
+            // AND 17
+            int _start_i17 = _index;
+
+            // STAR 18
+            int _start_i18 = _index;
+            var _res18 = Enumerable.Empty<MarkdownElementBase>();
+        label18:
+
+            // CALLORVAR LineBreak
+            _GithubMarkdown_Item _r19;
+
+            _r19 = _MemoCall(_memo, "LineBreak", _index, LineBreak, null);
+
+            if (_r19 != null) _index = _r19.NextIndex;
+
+            // STAR 18
+            var _r18 = _memo.Results.Pop();
+            if (_r18 != null)
+            {
+                _res18 = _res18.Concat(_r18.Results);
+                goto label18;
+            }
+            else
+            {
+                _memo.Results.Push(new _GithubMarkdown_Item(_start_i18, _index, _memo.InputEnumerable, _res18.Where(_NON_NULL), true));
+            }
+
+            // AND shortcut
+            if (_memo.Results.Peek() == null) { _memo.Results.Push(null); goto label17; }
+
+            // CALLORVAR Blockquote
+            _GithubMarkdown_Item _r20;
+
+            _r20 = _MemoCall(_memo, "Blockquote", _index, Blockquote, null);
+
+            if (_r20 != null) _index = _r20.NextIndex;
+
+        label17: // AND
+            var _r17_2 = _memo.Results.Pop();
+            var _r17_1 = _memo.Results.Pop();
+
+            if (_r17_1 != null && _r17_2 != null)
+            {
+                _memo.Results.Push( new _GithubMarkdown_Item(_start_i17, _index, _memo.InputEnumerable, _r17_1.Results.Concat(_r17_2.Results).Where(_NON_NULL), true) );
+            }
+            else
+            {
+                _memo.Results.Push(null);
+                _index = _start_i17;
+            }
+
+            // OR shortcut
+            if (_memo.Results.Peek() == null) { _memo.Results.Pop(); _index = _start_i16; } else goto label16;
+
+            // CALLORVAR Paragraph
+            _GithubMarkdown_Item _r21;
+
+            _r21 = _MemoCall(_memo, "Paragraph", _index, Paragraph, null);
+
+            if (_r21 != null) _index = _r21.NextIndex;
+
+        label16: // OR
+            int _dummy_i16 = _index; // no-op for label
+
+            // AND shortcut
+            if (_memo.Results.Peek() == null) { _memo.Results.Push(null); goto label15; }
+
+            // CALLORVAR LineBreak
+            _GithubMarkdown_Item _r23;
+
+            _r23 = _MemoCall(_memo, "LineBreak", _index, LineBreak, null);
+
+            if (_r23 != null) _index = _r23.NextIndex;
+
+            // QUES
+            if (_memo.Results.Peek() == null) { _memo.Results.Pop(); _memo.Results.Push(new _GithubMarkdown_Item(_index, _memo.InputEnumerable)); }
+
+        label15: // AND
+            var _r15_2 = _memo.Results.Pop();
+            var _r15_1 = _memo.Results.Pop();
+
+            if (_r15_1 != null && _r15_2 != null)
+            {
+                _memo.Results.Push( new _GithubMarkdown_Item(_start_i15, _index, _memo.InputEnumerable, _r15_1.Results.Concat(_r15_2.Results).Where(_NON_NULL), true) );
+            }
+            else
+            {
+                _memo.Results.Push(null);
+                _index = _start_i15;
+            }
+
+            // STAR 14
+            var _r14 = _memo.Results.Pop();
+            if (_r14 != null)
+            {
+                _res14 = _res14.Concat(_r14.Results);
+                goto label14;
+            }
+            else
+            {
+                _memo.Results.Push(new _GithubMarkdown_Item(_start_i14, _index, _memo.InputEnumerable, _res14.Where(_NON_NULL), true));
+            }
+
+            // BIND children
+            children = _memo.Results.Peek();
 
         label1: // AND
             var _r1_2 = _memo.Results.Pop();
@@ -374,7 +574,22 @@ namespace Net.Yingzxu.MarkdownDom.Parser
             if (_r0 != null)
             {
                 _memo.Results.Pop();
-                _memo.Results.Push( new _GithubMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { GeneralElement para = new GeneralElement(ElementType.Paragraph); para.TextContent=text.Results.First().TextContent ;return para; }, _r0), true) );
+                _memo.Results.Push( new _GithubMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { BlockquoteElement block = new BlockquoteElement(); 
+            block.QuoteLevel=symbol.Results.First().TextContent.Length;
+            block.AddChildrenElements(inner.Results.AsEnumerable<MarkdownElementBase>());
+            IEnumerable<MarkdownElementBase> innerBlocks =  children.Results.AsEnumerable<MarkdownElementBase>();
+            foreach (MarkdownElementBase innerBlock in innerBlocks)
+            {
+                if (innerBlock.Type == ElementType.Blockquote && (innerBlock as BlockquoteElement).QuoteLevel <= block.QuoteLevel)
+                {
+                    block.AddChildrenElements(innerBlock.Children);
+                }
+                else
+                {
+                    block.AddChildElement(innerBlock);
+                }
+            }
+            return block; }, _r0), true) );
             }
 
         }
@@ -501,7 +716,7 @@ namespace Net.Yingzxu.MarkdownDom.Parser
         }
 
 
-        public void AnyText(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
+        public void InlineText(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
         {
         
 
@@ -596,6 +811,47 @@ namespace Net.Yingzxu.MarkdownDom.Parser
 
             // LITERAL '#'
             _ParseLiteralChar(_memo, ref _index, '#');
+
+            // PLUS 1
+            var _r1 = _memo.Results.Pop();
+            if (_r1 != null)
+            {
+                _res1 = _res1.Concat(_r1.Results);
+                goto label1;
+            }
+            else
+            {
+                if (_index > _start_i1)
+                    _memo.Results.Push(new _GithubMarkdown_Item(_start_i1, _index, _memo.InputEnumerable, _res1.Where(_NON_NULL), true));
+                else
+                    _memo.Results.Push(null);
+            }
+
+            // ACT
+            var _r0 = _memo.Results.Peek();
+            if (_r0 != null)
+            {
+                _memo.Results.Pop();
+                _memo.Results.Push( new _GithubMarkdown_Item(_r0.StartIndex, _r0.NextIndex, _memo.InputEnumerable, _Thunk(_IM_Result => { string match=Input(_IM_Result) ;
+        GeneralElement text = new GeneralElement(ElementType.Text); 
+        text.TextContent=match;
+        return text; }, _r0), true) );
+            }
+
+        }
+
+
+        public void BlockquoteSymbol(_GithubMarkdown_Memo _memo, int _index, _GithubMarkdown_Args _args)
+        {
+        
+
+            // PLUS 1
+            int _start_i1 = _index;
+            var _res1 = Enumerable.Empty<MarkdownElementBase>();
+        label1:
+
+            // LITERAL '>'
+            _ParseLiteralChar(_memo, ref _index, '>');
 
             // PLUS 1
             var _r1 = _memo.Results.Pop();

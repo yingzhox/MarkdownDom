@@ -18,10 +18,12 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
     Block = 
 		LineBreak
 		| Head: head -> {head}
-		| Paragraph : para -> { para }
+		| Blockquote : quote -> {quote}
+		| Paragraph : para -> {para}
+		
 	;
 
-	Head = HeadSymbol:symbol HeadText:text LineBreak* ->
+	Head = HeadSymbol:symbol HeadText:text ->
 		{	HeaderElement head = new HeaderElement(); 
 			head.Size=symbol.Results.First().TextContent.Length;
 			head.TextContent=text.Results.First().TextContent;
@@ -29,19 +31,50 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 			head.TextContent=head.TextContent.TrimEnd('#');
 			return head;
 		};
-	Paragraph = AnyText:text LineBreak* -> { GeneralElement para = new GeneralElement(ElementType.Paragraph); para.TextContent=text.Results.First().TextContent ;return para;};
+	Paragraph = InlineText:text -> 
+		{
+			GeneralElement para = new GeneralElement(ElementType.Paragraph); 
+			para.TextContent=text.Results.First().TextContent;
+			return para;
+		};
+	Blockquote = BlockquoteSymbol:symbol (Head | Paragraph)*:inner LineBreak? (((LineBreak* Blockquote) | Paragraph) LineBreak?)*:children-> 
+		{
+			BlockquoteElement block = new BlockquoteElement(); 
+			block.QuoteLevel=symbol.Results.First().TextContent.Length;
+			block.AddChildrenElements(inner.Results.AsEnumerable<MarkdownElementBase>());
+			IEnumerable<MarkdownElementBase> innerBlocks =  children.Results.AsEnumerable<MarkdownElementBase>();
+            foreach (MarkdownElementBase innerBlock in innerBlocks)
+            {
+                if (innerBlock.Type == ElementType.Blockquote && (innerBlock as BlockquoteElement).QuoteLevel <= block.QuoteLevel)
+                {
+                    block.AddChildrenElements(innerBlock.Children);
+                }
+                else
+                {
+                    block.AddChildElement(innerBlock);
+                }
+            }
+			return block;
+		};
+
 	LineBreak =  '\r' '\n'? | '\n' ;
 	HeadText = (~LineBreak .)* -> {
 		string match=Input(_IM_Result) ;
 		GeneralElement text = new GeneralElement(ElementType.Text); 
 		text.TextContent=match;
 		return text;}; 
-	AnyText =  (~('\n' | '\r') .)+ -> {
+	//PlainText Bold or Italic etc..
+	InlineText =  (~('\n' | '\r') .)+ -> {
 		string match=Input(_IM_Result) ;
 		GeneralElement text = new GeneralElement(ElementType.Text); 
 		text.TextContent=match;
 		return text;}; 
 	HeadSymbol = '#'+ -> {
+		string match=Input(_IM_Result) ;
+		GeneralElement text = new GeneralElement(ElementType.Text); 
+		text.TextContent=match;
+		return text;}; 
+	BlockquoteSymbol = '>'+ -> {
 		string match=Input(_IM_Result) ;
 		GeneralElement text = new GeneralElement(ElementType.Text); 
 		text.TextContent=match;

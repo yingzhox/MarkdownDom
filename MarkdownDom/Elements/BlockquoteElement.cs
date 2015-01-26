@@ -7,10 +7,11 @@ using Net.Yingzxu.MarkdownDom.Base;
 
 namespace Net.Yingzxu.MarkdownDom.Elements
 {
-    class BlockElement : MarkdownElementBase
+    class BlockquoteElement : MarkdownElementBase
     {
-        public BlockElement()
-            : base(ElementType.Block)
+        public int QuoteLevel { set; get; }
+        public BlockquoteElement()
+            : base(ElementType.Blockquote)
         {
         }
     }

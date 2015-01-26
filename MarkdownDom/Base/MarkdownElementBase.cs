@@ -9,7 +9,7 @@ namespace Net.Yingzxu.MarkdownDom.Base
     public enum ElementType
     {
         Document,
-        Block,
+        Blockquote,
         Paragraph,
         Text,
         Header,
@@ -40,6 +40,11 @@ namespace Net.Yingzxu.MarkdownDom.Base
             Type = type;
         }
 
+        public List<MarkdownElementBase> Children
+        {
+            get { return children; }
+        }
+
         protected MarkdownElementBase()
         {
 
@@ -55,7 +60,7 @@ namespace Net.Yingzxu.MarkdownDom.Base
             StringBuilder res = new StringBuilder();
             string number = ("[" + no + "]").PadLeft(level + 1);
             string indent = "".PadLeft(number.Length);
-            res.Append(number).Append("NodeType:").Append(this.GetType().Name).Append('\n');
+            res.Append(number).Append("NodeType:").Append(this.GetType().Name).Append(" - ").Append(Type.ToString()).Append('\n');
             if (!string.IsNullOrEmpty(this.TextContent))
                 res.Append(indent).Append("NodeText:").Append(this.TextContent).Append('\n');
             string internalStr = this.ToStringInternal();
