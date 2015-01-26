@@ -45,7 +45,7 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 			IEnumerable<MarkdownElementBase> innerBlocks =  children.Results.AsEnumerable<MarkdownElementBase>();
             foreach (MarkdownElementBase innerBlock in innerBlocks)
             {
-                if (innerBlock.Type == ElementType.Blockquote && (innerBlock as BlockquoteElement).QuoteLevel <= block.QuoteLevel)
+                if (innerBlock.Type == ElementType.Blockquote && (innerBlock as BlockquoteElement).QuoteLevel <= block.QuoteLevel) 
                 {
                     block.AddChildrenElements(innerBlock.Children);
                 }
