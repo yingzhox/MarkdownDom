@@ -53,7 +53,7 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
                 {
                     block.AddChildElement(innerBlock);
                 }
-            }
+            } 
 			return block;
 		};
 
