@@ -14,10 +14,5 @@ namespace Net.Yingzxu.MarkdownDom.Elements
         {
 
         }
-
-        public GeneralElement()
-            : base(ElementType.Blank)
-        {
-        }
     }
 }

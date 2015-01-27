@@ -16,11 +16,10 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 		return root;
 	}	;
     Block = 
-		LineBreak
+		LineBreak* : linebreaks ?( linebreaks.Results.Count() > 1 ) -> { return new GeneralElement(ElementType.BlankLine); }
 		| Head: head -> {head}
 		| Blockquote : quote -> {quote}
 		| Paragraph : para -> {para}
-		
 	;
 
 	Head = HeadSymbol:symbol HeadText:text ->
@@ -57,7 +56,7 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 			return block;
 		};
 
-	LineBreak =  '\r' '\n'? | '\n' ;
+	LineBreak =  '\r' '\n'? | '\n' -> {new GeneralElement(ElementType.BlankLine);};
 	HeadText = (~LineBreak .)* -> {
 		string match=Input(_IM_Result) ;
 		GeneralElement text = new GeneralElement(ElementType.Text); 

@@ -13,7 +13,7 @@ namespace Net.Yingzxu.MarkdownDom.Base
         Paragraph,
         Text,
         Header,
-        Blank
+        BlankLine
     };
 
     public abstract class MarkdownElementBase

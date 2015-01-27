@@ -16,8 +16,8 @@ namespace MDETest
         static void Main(string[] args)
         {
             //RebuildOMetaSharpParser();
-            Parse();
-            //Convert();
+            //Parse();
+            Convert();
             //OMetaConsoleProgram.Run<Program>(OMetaConsoleOptions.CompileGrammars);
             Console.Read();
         }
