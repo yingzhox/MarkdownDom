@@ -11,7 +11,7 @@ namespace Net.Yingzxu.MarkdownDom.Base
         Document,
         Blockquote,
         Paragraph,
-        Text,
+        InlineText,
         Header,
         BlankLine
     };

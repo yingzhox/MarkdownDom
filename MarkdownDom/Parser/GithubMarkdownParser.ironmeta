@@ -3,7 +3,7 @@ using System.Linq;
 using Net.Yingzxu.MarkdownDom;
 using Net.Yingzxu.MarkdownDom.Base;
 using Net.Yingzxu.MarkdownDom.Elements;
-
+using Net.Yingzxu.MarkdownDom.PostProcess;
 // This grammar is far more complicated than 
 // it needs to be, in order to demonstrate
 // the features of the IronMeta system.
@@ -12,11 +12,14 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 {
     Document = Block*:block EOF -> { 
 		MarkdownDocument root = new MarkdownDocument(); 
-		root.AddChildrenElements(block.Results.AsEnumerable<MarkdownElementBase>());
+		//merge blockquote sequence
+		MarkdownElementBase[] innerBlocks =  block.Results.ToArray<MarkdownElementBase>();
+		PostProcessor.PostProcess(innerBlocks,root);
 		return root;
 	}	;
     Block = 
-		LineBreak* : linebreaks ?( linebreaks.Results.Count() > 1 ) -> { return new GeneralElement(ElementType.BlankLine); }
+		BlankLine : blankline -> {blankline}
+		| LineBreak
 		| Head: head -> {head}
 		| Blockquote : quote -> {quote}
 		| Paragraph : para -> {para}
@@ -30,56 +33,59 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 			head.TextContent=head.TextContent.TrimEnd('#');
 			return head;
 		};
-	Paragraph = InlineText:text -> 
+	Paragraph = AnyText:text -> 
 		{
 			GeneralElement para = new GeneralElement(ElementType.Paragraph); 
-			para.TextContent=text.Results.First().TextContent;
+			para.AddChildElement(text.Results.First());
 			return para;
 		};
-	Blockquote = BlockquoteSymbol:symbol (Head | Paragraph)*:inner LineBreak? (((LineBreak* Blockquote) | Paragraph) LineBreak?)*:children-> 
+	Blockquote = BlockquoteSymbol:symbol (Head | InlineText)*:inner (LineBreak? InlineText)*:children-> 
 		{
 			BlockquoteElement block = new BlockquoteElement(); 
 			block.QuoteLevel=symbol.Results.First().TextContent.Length;
 			block.AddChildrenElements(inner.Results.AsEnumerable<MarkdownElementBase>());
-			IEnumerable<MarkdownElementBase> innerBlocks =  children.Results.AsEnumerable<MarkdownElementBase>();
-            foreach (MarkdownElementBase innerBlock in innerBlocks)
-            {
-                if (innerBlock.Type == ElementType.Blockquote && (innerBlock as BlockquoteElement).QuoteLevel <= block.QuoteLevel) 
-                {
-                    block.AddChildrenElements(innerBlock.Children);
-                }
-                else
-                {
-                    block.AddChildElement(innerBlock);
-                }
-            } 
+			block.AddChildrenElements(children.Results.AsEnumerable<MarkdownElementBase>());
 			return block;
 		};
 
-	LineBreak =  '\r' '\n'? | '\n' -> {new GeneralElement(ElementType.BlankLine);};
+	LineBreak =  '\r' '\n'? | '\n' ;
 	HeadText = (~LineBreak .)* -> {
 		string match=Input(_IM_Result) ;
-		GeneralElement text = new GeneralElement(ElementType.Text); 
+		GeneralElement text = new GeneralElement(ElementType.InlineText); 
 		text.TextContent=match;
 		return text;}; 
+
 	//PlainText Bold or Italic etc..
-	InlineText =  (~('\n' | '\r') .)+ -> {
+	InlineText = ~StartSymbol (~('\n' | '\r') .)+ -> {
 		string match=Input(_IM_Result) ;
-		GeneralElement text = new GeneralElement(ElementType.Text); 
+		GeneralElement text = new GeneralElement(ElementType.InlineText); 
 		text.TextContent=match;
 		return text;}; 
+
+	AnyText = (~('\n' | '\r') .)+ -> {
+	string match=Input(_IM_Result) ;
+	GeneralElement text = new GeneralElement(ElementType.InlineText); 
+	text.TextContent=match;
+	return text;}; 
+
+	StartSymbol = LegalStartSpace? '>';
+	LegalStartSpace = ' '{1,3};
 	HeadSymbol = '#'+ -> {
 		string match=Input(_IM_Result) ;
-		GeneralElement text = new GeneralElement(ElementType.Text); 
+		GeneralElement text = new GeneralElement(ElementType.InlineText); 
 		text.TextContent=match;
 		return text;}; 
-	BlockquoteSymbol = '>'+ -> {
+
+	BlockquoteSymbol = LegalStartSpace? '>'+ -> {
 		string match=Input(_IM_Result) ;
-		GeneralElement text = new GeneralElement(ElementType.Text); 
+		GeneralElement text = new GeneralElement(ElementType.InlineText); 
 		text.TextContent=match;
 		return text;}; 
+	BlankLine = LineBreak WS* LineBreak -> {
+		GeneralElement blank = new GeneralElement(ElementType.BlankLine); 
+		return blank;};
 	DG = ['0'-'9'];
 	EN = ['a'-'z'] | ['A'-'Z'];
-    WS = ' ' | '\n' | '\r' | '\t'; 
+    WS = ' ' | '\t'; 
 	EOF = ~. ;
 } 

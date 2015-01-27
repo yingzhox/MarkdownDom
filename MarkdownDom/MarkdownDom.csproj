@@ -46,6 +46,7 @@
     <Compile Include="Elements\BlockquoteElement.cs" />
     <Compile Include="Elements\GeneralElement.cs" />
     <Compile Include="MarkdownDocument.cs" />
+    <Compile Include="PostProcess\PostProcessor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Parser\GithubMarkdownParser.g.cs" />
