@@ -15,6 +15,7 @@ namespace Net.Yingzxu.MarkdownDom.Base
         Header,
         BlankLine,
         List, //unordered/ordered list
+        ListItem // item in list
     };
 
     public abstract class MarkdownElementBase

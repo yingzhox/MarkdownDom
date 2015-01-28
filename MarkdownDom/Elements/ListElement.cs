@@ -7,10 +7,10 @@ using Net.Yingzxu.MarkdownDom.Base;
 
 namespace Net.Yingzxu.MarkdownDom.Elements
 {
-    class UListElement : MarkdownElementBase
+    class ListElement : MarkdownElementBase
     {
         public bool IsOrderedList { set; get; }
-        public UListElement()
+        public ListElement()
             : base(ElementType.List)
         {
 
