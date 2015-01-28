@@ -13,7 +13,8 @@ namespace Net.Yingzxu.MarkdownDom.Base
         Paragraph,
         InlineText,
         Header,
-        BlankLine
+        BlankLine,
+        List, //unordered/ordered list
     };
 
     public abstract class MarkdownElementBase

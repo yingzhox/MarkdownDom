@@ -22,6 +22,7 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 		| LineBreak
 		| Head: head -> {head}
 		| Blockquote : quote -> {quote}
+		| UnorderedList : ulist -> {ulist}
 		| Paragraph : para -> {para}
 	;
 
