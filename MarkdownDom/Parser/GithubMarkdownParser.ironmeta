@@ -25,8 +25,9 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 		| UnorderedList : ulist -> {ulist}
 		| Paragraph : para -> {para}
 	;
-	UnorderedList = LegalStartSpace? ListItemSymbol WS+
-
+	// -
+	UnorderedList = LegalStartSpace ListItemSymbol WS+ () InlineText:textContent
+					(LineBreak )
 	;
 	Head = HeadSymbol:symbol HeadText:text ->
 		{	HeaderElement head = new HeaderElement(); 
@@ -93,4 +94,6 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 	EN = ['a'-'z'] | ['A'-'Z'];
     WS = ' ' | '\t'; 
 	EOF = ~. ;
+	//eight blank
+	CodeBlockStart = (' ':'\t')+:res ?( res.ToString().Replace('\t',' ').Length = 8 );
 } 
