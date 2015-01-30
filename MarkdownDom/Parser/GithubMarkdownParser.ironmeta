@@ -28,7 +28,7 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 	// -
 	UnorderedList = LegalStartSpace ListItemSymbol WS+ () InlineText:textContent
 					(LineBreak )
-	;
+	; 
 	Head = HeadSymbol:symbol HeadText:text ->
 		{	HeaderElement head = new HeaderElement(); 
 			head.Size=symbol.Results.First().TextContent.Length;
