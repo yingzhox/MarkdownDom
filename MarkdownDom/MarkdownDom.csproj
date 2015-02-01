@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\MarkdownElementBase.cs" />
+    <Compile Include="Elements\InternalElement.cs" />
     <Compile Include="Elements\ListElement.cs" />
     <Compile Include="Elements\HeaderElement.cs" />
     <Compile Include="Elements\BlockquoteElement.cs" />
