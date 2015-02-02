@@ -4,9 +4,6 @@ using Net.Yingzxu.MarkdownDom;
 using Net.Yingzxu.MarkdownDom.Base;
 using Net.Yingzxu.MarkdownDom.Elements;
 using Net.Yingzxu.MarkdownDom.PostProcess;
-// This grammar is far more complicated than 
-// it needs to be, in order to demonstrate
-// the features of the IronMeta system.
 
 ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatcher<MarkdownElementBase>
 {
@@ -25,12 +22,9 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 		| UnorderedList : ulist -> {ulist}
 		| Paragraph : para -> {para}
 	;
-	// -
-	UnorderedList :  = LegalStartSpace ListItemSymbol WS+ () InlineText:textContent
-					(LineBreak ) 
+	UnorderedList  = UnorderedListItem* : items
 	;   
-	UnorderedListItem =
-
+	UnorderedListItem = ListItemSymbol WS+
 	;
 
 	Head = HeadSymbol:symbol HeadText:text ->
@@ -98,6 +92,6 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 	EN = ['a'-'z'] | ['A'-'Z'];
     WS = ' ' | '\t'; 
 	EOF = ~. ;
-	//eight blank
+	WSStart = (' ':'\t')+:res ?( res.ToString().Replace('\t',' ').Length > 5);
 	CodeBlockStart = (' ':'\t')+:res ?( res.ToString().Replace('\t',' ').Length = 8 );
 } 
