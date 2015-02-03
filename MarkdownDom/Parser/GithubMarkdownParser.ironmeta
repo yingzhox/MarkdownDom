@@ -57,7 +57,6 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 		text.TextContent=match;
 		return text;}; 
 
-	//PlainText Bold or Italic etc..
 	InlineText = ~StartSymbol (~('\n' | '\r') .)+ -> {
 		string match=Input(_IM_Result) ;
 		GeneralElement text = new GeneralElement(ElementType.InlineText); 
@@ -92,6 +91,6 @@ ironmeta GithubMarkdown<char, MarkdownElementBase> : IronMeta.Matcher.CharMatche
 	EN = ['a'-'z'] | ['A'-'Z'];
     WS = ' ' | '\t'; 
 	EOF = ~. ;
-	WSStart = (' ':'\t')+:res ?( res.ToString().Replace('\t',' ').Length > 5);
+	WSStart = (' ':'\t')+:res ?( res.ToString().Replace('\t',' ').Length > 5); 
 	CodeBlockStart = (' ':'\t')+:res ?( res.ToString().Replace('\t',' ').Length = 8 );
 } 
