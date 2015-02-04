@@ -123,7 +123,7 @@ ironmeta Parser<char, AST.Node> : IronMeta.Matcher.CharMatcher<AST.Node>
     CallOrVar = ~KEYWORD QualifiedId:name -> { return new AST.CallOrVar(name); };
     Literal = ((NEW GenericId? &'{') | &('\x22' | '\x27' | '{')) CSharpCode -> { return new AST.Code(_IM_Result); };
 
-    InputClass = '[' SP (ClassRange | &'\x27' Literal)+:c ']' SP -> { return new AST.InputClass(c.Results); };
+    InputClass = '[' SP (ClassRange | &'\x27' Literal)+:c ']' SP -> { return new AST.InputClass(c.Results); }; 
     ClassRange = &'\x27' Literal:from SP '-' SP &'\x27' Literal:to SP ->
         {
             char ch_from = AST.ClassRange.GetChar(from);
