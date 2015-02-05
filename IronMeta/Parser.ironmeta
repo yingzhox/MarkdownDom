@@ -54,6 +54,7 @@ ironmeta Parser<char, AST.Node> : IronMeta.Matcher.CharMatcher<AST.Node>
     Rule = OVERRIDE?:ovr Identifier:name Disjunction?:parms EQUALS Disjunction:body SEMI
         -> { return new AST.Rule(name, parms.Inputs.Any() ? new AST.Args(parms, body) : (AST.Node)body, Trimmed(ovr)); };
 
+	// parameters parsed here
     Disjunction = ActionExp ( OR ActionExp )*
         ->  {
                 return _IM_Result.Results
