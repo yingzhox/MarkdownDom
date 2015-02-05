@@ -79,6 +79,7 @@ ironmeta Parser<char, AST.Node> : IronMeta.Matcher.CharMatcher<AST.Node>
     ConditionExp = BoundTerm;
 
     BoundTerm = PrefixedTerm:exp COLON Identifier:id -> { return new AST.Bind(exp, id); };
+	//:sth
     BoundTerm = COLON Identifier:id -> { return new AST.Bind(new AST.Any(), id); };
     BoundTerm = PrefixedTerm;
 
